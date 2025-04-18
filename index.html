@@ -51,25 +51,26 @@
             flex-direction: column;
             width: 100%;
             max-width: 920px;
-            gap: 4px;
             margin: 340px auto 0;
         }
         
-                .intro-paragraph {
+        .intro-paragraph {
             display: block;
             width: 100%;
             font-size: 32px;
             line-height: 44px;
             font-weight: normal;
             color: black;
-            transition: opacity 0.3s ease;
+            margin: 0; /* Remove default paragraph margins */
+            padding: 0; /* Remove default paragraph padding */
         }
         
-        .intro-text {
-            font-size: 32px;
-            line-height: 44px;
-            font-weight: normal;
-            color: black;
+        .intro-paragraph + .intro-paragraph {
+            margin-top: -8px; /* Add negative margin to subsequent paragraphs */
+        }
+        
+        .text-part {
+            transition: opacity 0.3s ease;
         }
         
         .company {
@@ -78,18 +79,7 @@
             gap: 6px;
             vertical-align: middle;
             cursor: pointer;
-        }
-        
-        /* Hover effects for the company sections */
-        .company-windmill:hover ~ .intro-paragraph,
-        .company-expensa:hover ~ .intro-paragraph,
-        .company-windmill:hover ~ .intro-paragraph .company:not(.company-windmill),
-        .company-expensa:hover ~ .intro-paragraph .company:not(.company-expensa),
-        .intro-paragraph:has(.company-windmill:hover) ~ .intro-paragraph,
-        .intro-paragraph:has(.company-expensa:hover) ~ .intro-paragraph,
-        body:has(.company-windmill:hover) .intro-paragraph:not(:has(.company-windmill)),
-        body:has(.company-expensa:hover) .intro-paragraph:not(:has(.company-expensa)) {
-            opacity: 0.64;
+            transition: opacity 0.3s ease;
         }
         
         .company-name {
@@ -134,7 +124,7 @@
                 <p class="intro-paragraph">
                     <span class="text-part">I'm Andrew, a Senior Experience Designer at</span>
                     <span class="company company-windmill">
-                        <img src="/svg-export-1.svg" alt="Windmill" width="35.07" height="34.21">
+                        <img src="/windmill.svg" alt="Windmill" width="35.07" height="34.21">
                         <span class="company-name">Windmill,</span>
                     </span>
                 </p>
@@ -147,7 +137,7 @@
                     <span class="text-part">where design meets impact. I'm also building</span>
                     <span class="company company-expensa">
                         <span class="custom-logo">
-                            <img src="/subtract.svg" alt="Expensa">
+                            <img src="/expensa.svg" alt="Expensa">
                         </span>
                         <span class="company-name">Expensa,</span>
                     </span>
@@ -163,5 +153,26 @@
             </section>
         </div>
     </main>
+
+    <script>
+        // JavaScript for hover effect with text-part targeting
+        document.querySelectorAll('.company-windmill, .company-expensa').forEach(company => {
+            company.addEventListener('mouseenter', () => {
+                // Fade all text parts and companies
+                document.querySelectorAll('.text-part, .company').forEach(el => {
+                    el.style.opacity = '0.64';
+                });
+                // Keep only the hovered company at full opacity
+                company.style.opacity = '1';
+            });
+            
+            company.addEventListener('mouseleave', () => {
+                // Restore all to full opacity
+                document.querySelectorAll('.text-part, .company').forEach(el => {
+                    el.style.opacity = '1';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
