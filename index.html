@@ -55,13 +55,14 @@
             margin: 340px auto 0;
         }
         
-        .intro-paragraph {
+                .intro-paragraph {
             display: block;
             width: 100%;
             font-size: 32px;
             line-height: 44px;
             font-weight: normal;
             color: black;
+            transition: opacity 0.3s ease;
         }
         
         .intro-text {
@@ -76,6 +77,19 @@
             align-items: center;
             gap: 6px;
             vertical-align: middle;
+            cursor: pointer;
+        }
+        
+        /* Hover effects for the company sections */
+        .company-windmill:hover ~ .intro-paragraph,
+        .company-expensa:hover ~ .intro-paragraph,
+        .company-windmill:hover ~ .intro-paragraph .company:not(.company-windmill),
+        .company-expensa:hover ~ .intro-paragraph .company:not(.company-expensa),
+        .intro-paragraph:has(.company-windmill:hover) ~ .intro-paragraph,
+        .intro-paragraph:has(.company-expensa:hover) ~ .intro-paragraph,
+        body:has(.company-windmill:hover) .intro-paragraph:not(:has(.company-windmill)),
+        body:has(.company-expensa:hover) .intro-paragraph:not(:has(.company-expensa)) {
+            opacity: 0.64;
         }
         
         .company-name {
@@ -119,7 +133,7 @@
             <section class="content">
                 <p class="intro-paragraph">
                     I'm Andrew, a Senior Experience Designer at
-                    <span class="company">
+                    <span class="company company-windmill">
                         <img src="/svg-export-1.svg" alt="Windmill" width="35.07" height="34.21">
                         <span class="company-name">Windmill,</span>
                     </span>
@@ -131,7 +145,7 @@
                 
                 <p class="intro-paragraph">
                     where design meets impact. I'm also building
-                    <span class="company">
+                    <span class="company company-expensa">
                         <span class="custom-logo">
                             <img src="/subtract.svg" alt="Expensa">
                         </span>
