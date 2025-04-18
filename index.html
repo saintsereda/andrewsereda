@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Andrew Sereda - Senior Experience Designer</title>
+    <title>Andrew's Portfolio</title>
     <style>
         body {
             font-family: sans-serif;
@@ -54,7 +54,6 @@
             width: 100%;
             max-width: 920px;
             margin: 340px auto 0;
-            padding: 0 16px;
             box-sizing: border-box;
         }
         
@@ -78,6 +77,7 @@
         
         .text-part {
             transition: opacity 0.3s ease;
+            display: inline; /* Ensure inline display */
         }
         
         .company {
@@ -135,6 +135,7 @@
             .intro-paragraph {
                 font-size: 20px;
                 line-height: 30px;
+                margin-bottom: 15px; /* Add more space between paragraphs on smallest screens */
             }
             
             .company-name {
@@ -154,6 +155,13 @@
             .custom-logo img {
                 width: 20px;
                 height: 20px;
+            }
+            
+            /* Force companies to be on their own line on very small screens */
+            .company {
+                display: inline-block;
+                margin-top: 5px;
+                margin-bottom: 5px;
             }
         }
     </style>
