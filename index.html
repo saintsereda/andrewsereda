@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             background-color: white;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            overflow-x: hidden;
         }
         
         .container {
@@ -19,7 +19,7 @@
             margin: 0 auto;
             padding: 24px;
             position: relative;
-            box-sizing: border-box; /* Include padding in width calculation */
+            box-sizing: border-box;
         }
         
         nav {
@@ -54,56 +54,35 @@
             width: 100%;
             max-width: 920px;
             margin: 340px auto 0;
-            padding: 0 16px;
             box-sizing: border-box;
         }
         
         .intro-paragraph {
-            display: block;
-            width: 100%;
             font-size: 32px;
             line-height: 44px;
             font-weight: normal;
             color: black;
-            margin: 0; /* Remove default paragraph margins */
-            padding: 0; /* Remove default paragraph padding */
-            word-wrap: break-word; /* Allow long words to break */
+            margin: 0;
+            padding: 0;
+            word-wrap: break-word;
             overflow-wrap: break-word;
-            margin-bottom: 10px; /* Add space between paragraphs */
         }
         
         .text-part {
             transition: opacity 0.3s ease;
-            display: inline; /* Ensure inline display */
         }
         
         .company {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            vertical-align: middle;
+            text-decoration: underline;
+            font-weight: 500;
             cursor: pointer;
             transition: opacity 0.3s ease;
-            text-decoration: none; /* Remove default link underline */
-            color: inherit; /* Inherit text color */
-        }
-        
-        .company-name {
-            text-decoration: underline;
-            font-size: 32px;
-            line-height: 44px;
-            font-weight: 500; /* Make company names slightly bolder */
+            color: inherit;
         }
         
         /* Media queries for responsive design */
         @media (max-width: 768px) {
             .intro-paragraph {
-                font-size: 24px;
-                line-height: 34px;
-                margin-bottom: 14px; /* Add space between paragraphs on mobile */
-            }
-            
-            .company-name {
                 font-size: 24px;
                 line-height: 34px;
             }
@@ -120,12 +99,6 @@
             
             .intro-paragraph {
                 font-size: 20px;
-                line-height: 32px; /* Increased line-height for better readability */
-                margin-bottom: 20px; /* Add more space between paragraphs on smallest screens */
-            }
-            
-            .company-name {
-                font-size: 20px;
                 line-height: 32px;
             }
             
@@ -133,13 +106,6 @@
                 margin-top: 120px;
             }
             
-            /* Adjust company display for mobile */
-            .company {
-                display: inline-flex;
-                white-space: nowrap; /* Prevent breaking within company elements */
-            }
-            
-            /* Nav adjustments for mobile */
             .nav-left {
                 gap: 20px;
             }
@@ -162,43 +128,33 @@
             <!-- Main content -->
             <section class="content">
                 <p class="intro-paragraph">
-                    <span class="text-part">I'm Andrew, a Senior Experience Designer at</span>
-                    <a href="https://www.windmill.digital" class="company company-windmill">
-                        <span class="company-name">Windmill,</span>
-                    </a>
-                </p>
-                
-                <p class="intro-paragraph">
-                    <span class="text-part">passionate about crafting intuitive, purposeful experiences</span>
-                </p>
-                
-                <p class="intro-paragraph">
-                    <span class="text-part">where design meets impact. I'm also building</span>
-                    <a href="https://www.getexpensa.app" class="company company-expensa">
-                        <span class="company-name">Expensa,</span>
-                    </a>
-                </p>
-                
-                <p class="intro-paragraph">
-                    <span class="text-part">an expense management app - driven by my curiosity</span>
-                </p>
-                
-                <p class="intro-paragraph">
-                    <span class="text-part">for AI and thoughtful UX</span>
+                    <span class="text-part">I'm Andrew, a Senior Experience Designer at </span>
+                    <a href="https://www.windmill.digital" class="company company-windmill">Windmill</a>
+                    <span class="text-part">, passionate about crafting intuitive, purposeful experiences where design meets impact. I'm also building </span>
+                    <a href="https://www.getexpensa.com" class="company company-expensa">Expensa</a>
+                    <span class="text-part">, an expense management app - driven by my curiosity for AI and thoughtful UX.</span>
                 </p>
             </section>
         </div>
     </main>
 
     <script>
-        // JavaScript for hover effect with text-part targeting
-        document.querySelectorAll('.company-windmill, .company-expensa').forEach(company => {
+        // JavaScript for hover effect
+        document.querySelectorAll('.company').forEach(company => {
             company.addEventListener('mouseenter', () => {
-                // Fade all text parts and companies
-                document.querySelectorAll('.text-part, .company').forEach(el => {
+                // Fade all text parts
+                document.querySelectorAll('.text-part').forEach(el => {
                     el.style.opacity = '0.64';
                 });
-                // Keep only the hovered company at full opacity
+                
+                // Fade other companies
+                document.querySelectorAll('.company').forEach(el => {
+                    if (el !== company) {
+                        el.style.opacity = '0.64';
+                    }
+                });
+                
+                // Keep hovered company at full opacity
                 company.style.opacity = '1';
             });
             
