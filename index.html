@@ -26,11 +26,19 @@
             color: #000000;
             font-weight: normal;
         }
+        .visitor-counter {
+            position: absolute;
+            right: 24px;
+            font-size: 16px;
+            color: #000000;
+            font-family: 'Geist', sans-serif;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">A – S</div>
+        <div class="visitor-counter" id="counter">0</div>
     </header>
     
     <div style="padding-top: 80px; display: flex; justify-content: center; align-items: center;">
@@ -85,5 +93,28 @@
             </div>
         </div>
     </div>
+
+        <!-- JavaScript for visitor counter -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Get the counter from localStorage or initialize it
+                let count = localStorage.getItem('visitorCount');
+                
+                // If counter doesn't exist, initialize it
+                if (count === null) {
+                    count = 1;
+                } else {
+                    // Increment the counter
+                    count = parseInt(count) + 1;
+                }
+                
+                // Save the updated counter
+                localStorage.setItem('visitorCount', count);
+                
+                // Display the counter
+                document.getElementById('counter').textContent = count;
+            });
+        </script>
+        
 </body>
 </html>
