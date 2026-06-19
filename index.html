@@ -102,22 +102,21 @@
 
             document.addEventListener('DOMContentLoaded', async function () {
                 const el = document.getElementById('counter');
-                const VISITED_KEY = 'hasVisited';
+                const NUMBER_KEY = 'visitorNumber';
 
                 try {
-                    // Нового унікального відвідувача рахуємо лише раз на цей браузер.
-                    const firstVisit = !localStorage.getItem(VISITED_KEY);
+                    // Персональний номер відвідувача зберігаємо один раз на цей браузер.
+                    let myNumber = localStorage.getItem(NUMBER_KEY);
 
-                    const res = await fetch(COUNTER_API, {
-                        method: firstVisit ? 'POST' : 'GET',
-                    });
-                    const data = await res.json();
-
-                    if (firstVisit) {
-                        localStorage.setItem(VISITED_KEY, '1');
+                    if (myNumber === null) {
+                        // Перший захід → беремо наступний номер у глобального лічильника.
+                        const res = await fetch(COUNTER_API, { method: 'POST' });
+                        const data = await res.json();
+                        myNumber = data.count;
+                        localStorage.setItem(NUMBER_KEY, myNumber);
                     }
 
-                    el.textContent = data.count.toLocaleString('en-US') + ' visitors';
+                    el.textContent = 'Hello, visitor #' + Number(myNumber).toLocaleString('en-US');
                 } catch (e) {
                     // Якщо лічильник недоступний — нічого не показуємо, сайт не ламається.
                     el.textContent = '';
