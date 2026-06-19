@@ -1,0 +1,11 @@
+{
+  "name": "visitor-counter",
+  "main": "worker.js",
+  "compatibility_date": "2025-01-01",
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "b1289478099b445693e76e83abfcf423"
+    }
+  ]
+}
