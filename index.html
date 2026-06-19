@@ -39,7 +39,7 @@
 <body>
     <header>
         <div class="logo">A – S</div>
-        <div class="visitor-counter" id="counter">0</div>
+        <div class="visitor-counter" id="counter"></div>
     </header>
     
     <div style="padding-top: 80px; display: flex; justify-content: center; align-items: center;">
@@ -95,25 +95,33 @@
         </div>
     </div>
 
-        <!-- JavaScript for visitor counter -->
+        <!-- JavaScript for visitor counter — реальний глобальний підрахунок через Cloudflare Worker -->
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Get the counter from localStorage or initialize it
-                let count = localStorage.getItem('visitorCount');
-                
-                // If counter doesn't exist, initialize it
-                if (count === null) {
-                    count = 1;
-                } else {
-                    // Increment the counter
-                    count = parseInt(count) + 1;
+            // 🔧 ЗАМІНИ на URL свого Worker'а (див. крок 4 інструкції):
+            const COUNTER_API = 'https://visitor-counter.5yjxrnsdbx.workers.dev';
+
+            document.addEventListener('DOMContentLoaded', async function () {
+                const el = document.getElementById('counter');
+                const VISITED_KEY = 'hasVisited';
+
+                try {
+                    // Нового унікального відвідувача рахуємо лише раз на цей браузер.
+                    const firstVisit = !localStorage.getItem(VISITED_KEY);
+
+                    const res = await fetch(COUNTER_API, {
+                        method: firstVisit ? 'POST' : 'GET',
+                    });
+                    const data = await res.json();
+
+                    if (firstVisit) {
+                        localStorage.setItem(VISITED_KEY, '1');
+                    }
+
+                    el.textContent = data.count.toLocaleString('en-US') + ' visitors';
+                } catch (e) {
+                    // Якщо лічильник недоступний — нічого не показуємо, сайт не ламається.
+                    el.textContent = '';
                 }
-                
-                // Save the updated counter
-                localStorage.setItem('visitorCount', count);
-                
-                // Display the counter
-                document.getElementById('counter').textContent = count;
             });
         </script>
 
